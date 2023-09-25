@@ -98,7 +98,7 @@ pokemones.addEventListener("click", async()=>{
                 </label>
             </div>
             `).join("")}
-            <input type="submit" value="Enviar"/>
+            <input id="enviarJSON" type="submit" value="Enviar"/>
         </form>
         `,
         //Imagenes al 80%
@@ -113,7 +113,25 @@ pokemones.addEventListener("click", async()=>{
         //Cambia el elemento hermano, por eso el nextElementSibling
         let myLabel=e.target.nextElementSibling;
 
-        //Que se agregue al HTML su valor y a que caracteristica pertenen, vida, ataque, etc
+        //Que se agregue al HTML su valor y a que caracteristica pertenen, vida, ataque, etc, esto son los valores que van cambiando
         myLabel.innerHTML=`<b>${e.target.value}</b> ${myLabel.dataset.name}`
-      })  
+
+        console.log(res.name);               //Guarda el nombre
+        console.log(myLabel.dataset.name);   //Guarda el nombre de la habilidad
+        console.log(e.target.value);         //Guarda el valor de la habilidad como numerico
+
+
+        let enviarJSON = document.querySelector("#enviarJSON");
+        //coloco mousedown para ver que si esta en la consola, pero en realidad solo sera click
+        enviarJSON.addEventListener("click",async()=>{
+        /*
+        console.log(res.name);
+        console.log(res.stats);
+        console.log(res.stats[0]);   //es del 0 al 5
+        */
+        console.log(e.target.value);
+        console.log(myLabel.dataset.name);
+        })
+
+    })  
 })
