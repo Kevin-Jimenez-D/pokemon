@@ -36,17 +36,27 @@ myPikachu.addEventListener("click", async()=>{
         imageUrl: `${(img) ? img:defaultImg}`,
         html:
         `
-        ${res.stats.map(data =>`
-        <input type="range" value="${data.base_stat}">
-        <label>
-            <b>${data.base_stat}</b>
-            <b>${data.stat.name}</b>
-        </label>
-        <br>`).join("")}
+        <form>
+            ${res.stats.map(data =>`
+            <div>
+                <input type="range" value="${data.base_stat}" name="${data.stat.name}"/>
+                <label data-name="${data.stat.name}">
+                    <b>${data.base_stat}</b>
+                    ${data.stat.name}
+                </label>
+            </div>
+            `).join("")}
+            <input type="submit" value="Enviar"/>
+        </form>
         `,
         imageWidth: "80%",
         imageHeight: "80%",
       })
+      let myContainer = document.querySelector("#swal2-html-container");
+      myContainer.addEventListener("input", (e)=>{
+        let myLabel=e.target.nextElementSibling;
+        myLabel.innerHTML=`<b>${e.target.value}</b> ${myLabel.dataset.name}`
+      })  
 })
 
 
