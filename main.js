@@ -23,18 +23,18 @@ myPikachu.addEventListener("click", async()=>{
     let defaultImg = "https://media.tenor.com/OPhGGLtFqLQAAAAC/pokeball.gif";
 
     // lo del swal es lo de la página "https://sweetalert2.github.io/"
-    //En la parte del name, en el link de la api, el name es un apartado principal, entonces solo se debe colocar name
-    //Donde aparece el ? es un condiciona, si la imagen aparece la coloca, sino coloca la de por default
-    //Se hace el mapeo porque son varios datos, deseo hacer iteración y que me genere nuevos datos sin alterar el inicial, se usa map
-    //Los input serán de tipo rango y en la parte del valor sera de los datos mapeados, 
-    //Los labels mostraran el numero y luego la caracteristica, HP y attack, etc
-    //Salto de linea con br y que los una con el .join en el HTML
-    //Imagenes al 80%
     Swal.fire({
+        //En la parte del name, en el link de la api, el name es un apartado principal, entonces solo se debe colocar name
         title: `${res.name}`,
         text: 'Modal with a custom image.',
+        
+        //Donde aparece el ? es un condiciona, si la imagen aparece la coloca, sino coloca la de por default
         imageUrl: `${(img) ? img:defaultImg}`,
         html:
+        //Se hace el mapeo porque son varios datos, deseo hacer iteración y que me genere nuevos datos sin alterar el inicial, se usa map
+        //Los input serán de tipo rango y en la parte del valor sera de los datos mapeados, 
+        //Los labels mostraran el numero y luego la caracteristica, HP y attack, etc
+        //Que los una con el .join en el HTML
         `
         <form>
             ${res.stats.map(data =>`
@@ -49,6 +49,7 @@ myPikachu.addEventListener("click", async()=>{
             <input type="submit" value="Enviar"/>
         </form>
         `,
+        //Imagenes al 80%
         imageWidth: "80%",
         imageHeight: "80%",
       })
