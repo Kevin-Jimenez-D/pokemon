@@ -116,6 +116,7 @@ pokemones.addEventListener("click", async()=>{
         //Que se agregue al HTML su valor y a que caracteristica pertenen, vida, ataque, etc, esto son los valores que van cambiando
         myLabel.innerHTML=`<b>${e.target.value}</b> ${myLabel.dataset.name}`
 
+        //console.log(res.id);                   //Guarda el id del pokemon
         //console.log(res.name);               //Guarda el nombre
         //console.log(myLabel.dataset.name);   //Guarda el nombre de la habilidad
         //console.log(e.target.value);         //Guarda el valor de la habilidad como numerico
@@ -151,6 +152,7 @@ pokemones.addEventListener("click", async()=>{
                 const speed = formData.get("speed");
             
                 // Luego puedes hacer lo que quieras con estos datos, como mostrarlos en la consola o enviarlos a través de una solicitud AJAX a otro lugar.
+                console.log("ID del pokemon:",String(res.id));                   
                 console.log("Nombre del Pokémon:", res.name);
                 console.log("Puntos de Salud (HP):", hp);
                 console.log("Puntos de Ataque:", attack);
