@@ -120,18 +120,63 @@ pokemones.addEventListener("click", async()=>{
         console.log(myLabel.dataset.name);   //Guarda el nombre de la habilidad
         console.log(e.target.value);         //Guarda el valor de la habilidad como numerico
 
-        //https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon
+        //let mockapi = "https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon"
+
+
+
 
         let enviarJSON = document.querySelector("#enviarJSON");
         //coloco mousedown para ver que si esta en la consola, pero en realidad solo sera click
-        enviarJSON.addEventListener("click",async()=>{
+        enviarJSON.addEventListener("mousedown",async()=>{
         /*
         console.log(res.name);
         console.log(res.stats);
         console.log(res.stats[0]);   //es del 0 al 5
         */
-        console.log(e.target.value);
-        console.log(myLabel.dataset.name);
+        console.log(res.name);               //Guarda el nombre
+        console.log(myLabel.dataset.name);   //Guarda el nombre de la habilidad
+        console.log(e.target.value);         //Guarda el valor de la habilidad como numerico
+
+        const dataToSend = {
+            name: res.name,  // Nombre del Pokémon
+        };
+    
+        // Recorre las características y sus valores
+        res.stats.forEach(data => {
+            const statName = data.stat.name;
+            const statValue = parseFloat(myContainer.querySelector(`input[name='${statName}']`).value);
+            
+            // Agrega la característica y su valor al objeto de datos a enviar
+            dataToSend[statName] = statValue;
+        });
+    
+        // URL de la API MockAPI
+        const mockapiUrl = "https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon";
+    
+        // Configuración para la solicitud POST
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataToSend),
+        };
+    
+        try {
+            // Envía los datos al servidor MockAPI
+            const response = await fetch(mockapiUrl, requestOptions);
+    
+            if (response.ok) {
+                // Si la solicitud fue exitosa, muestra un mensaje
+                Swal.fire("Éxito", "Datos enviados correctamente a MockAPI", "success");
+            } else {
+                // Si hubo un error en la solicitud, muestra un mensaje de error
+                Swal.fire("Error", "Error al enviar los datos a MockAPI", "error");
+            }
+        } catch (error) {
+            // En caso de error en la solicitud, muestra un mensaje de error
+            Swal.fire("Error", "Error al enviar los datos a MockAPI", "error");
+        }
         })
 
     })  
