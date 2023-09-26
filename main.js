@@ -120,6 +120,7 @@ pokemones.addEventListener("click", async()=>{
         console.log(myLabel.dataset.name);   //Guarda el nombre de la habilidad
         console.log(e.target.value);         //Guarda el valor de la habilidad como numerico
 
+        //https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon
 
         let enviarJSON = document.querySelector("#enviarJSON");
         //coloco mousedown para ver que si esta en la consola, pero en realidad solo sera click
