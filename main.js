@@ -68,7 +68,7 @@ pokemones.addEventListener("click", async()=>{
     //Traiga la peticion, por ejemplo 202, lo convierte a JSON y traiga esos datos
     //Son 1017 pokemons, si se le cambia el ultimo / por el numero, trae cada uno de los pokemons
     //Que empiece por defecto en 1
-    let res= await (await fetch("https://pokeapi.co/api/v2/pokemon/5")).json();
+    let res= await (await fetch("https://pokeapi.co/api/v2/pokemon/1")).json();
 
     //En la pagina "https://pokeapi.co/" se va al apartado sprites -> front_default -> la imagen del pikachu
     let img= res.sprites.front_default;
@@ -130,6 +130,7 @@ pokemones.addEventListener("click", async()=>{
                         
 
     })  
+            //let mockapi = "https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon"
             // Agrega un evento click al botón con id "enviarJSON"
             document.querySelector("#enviarJSON").addEventListener("click", async (event) => {
                 // Evita que el formulario se envíe de forma predeterminada
@@ -163,5 +164,51 @@ pokemones.addEventListener("click", async()=>{
                 console.log("speed", speed);
             
                 // Aquí puedes continuar con cualquier otra acción que desees realizar con los datos.
+
+
+
+
+                // Ahora puedes crear un objeto que contenga todos los datos que deseas enviar a la API MockAPI
+                const dataToSend = {
+                    id: String(res.id),
+                    name: res.name,
+                    hp: parseFloat(hp),
+                    attack: parseFloat(attack),
+                    defense: parseFloat(defense),
+                    specialAttack: parseFloat(specialAttack),
+                    specialDefense: parseFloat(specialDefense),
+                    speed: parseFloat(speed)
+                };
+
+                // URL de la API MockAPI
+                const mockapiUrl = "https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon";
+
+                // Configuración para la solicitud POST
+                const requestOptions = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(dataToSend),
+                };
+
+                try {
+                    // Envía los datos al servidor MockAPI
+                    const response = await fetch(mockapiUrl, requestOptions);
+
+                    if (response.ok) {
+                        // Si la solicitud fue exitosa, muestra un mensaje
+                        Swal.fire("Éxito", "Datos enviados correctamente a MockAPI", "success");
+                    } else {
+                        // Si hubo un error en la solicitud, muestra un mensaje de error
+                        Swal.fire("Error", "Error al enviar los datos a MockAPI", "error");
+                    }
+                } catch (error) {
+                    // En caso de error en la solicitud, muestra un mensaje de error
+                    Swal.fire("Error", "Error al enviar los datos a MockAPI", "error");
+                }
+
+
+
             });
 })
