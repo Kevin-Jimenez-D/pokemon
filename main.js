@@ -131,13 +131,45 @@ pokeapiMockapi.addEventListener("click",async()=>{
 })
 
 
+// Agrega un evento click al botón con id "buscarPokemon"
+document.querySelector("#buscarPokemon").addEventListener("click", async () => {
+    // Obtén el nombre del Pokémon ingresado por el usuario
+    const pokemonName = document.querySelector("#nombrePokemon").value.trim().toLowerCase();
+
+    // Verifica si el Pokémon ya existe en la base de datos de MockAPI
+    const mockapiUrl = "https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon";
+    const response = await fetch(mockapiUrl);
+    const pokemonData = await response.json();
+
+    // Busca el Pokémon en los datos de MockAPI
+    const foundPokemon = pokemonData.find((pokemon) => pokemon.name.toLowerCase() === pokemonName);
+
+    if (foundPokemon) {
+        // Si se encuentra el Pokémon, habilita el botón "pokemones" y almacena su ID
+        document.querySelector("#pokemones").removeAttribute("disabled");
+        document.querySelector("#pokemones").dataset.pokemonId = foundPokemon.id;
+        Swal.fire("Éxito", `¡${foundPokemon.name} encontrado en la base de datos!`, "success");
+    } else {
+        // Si no se encuentra el Pokémon, muestra un mensaje de error
+        Swal.fire("Error", `No se encontró ningún Pokémon con el nombre "${pokemonName}" en la base de datos.`, "error");
+    }
+});
+
+
+
+
 //Todas las acciones relacionadas con el boton addEventListener de los pokemones
 pokemones.addEventListener("click", async()=>{
+    // Obtén la ID del Pokémon almacenada en el botón
+    const pokemonId = document.querySelector("#pokemones").dataset.pokemonId;
+
+
     //De la pagina "https://pokeapi.co/" por defecto aparece pokemon y en /ditto se coloca pikachu
     //Traiga la peticion, por ejemplo 202, lo convierte a JSON y traiga esos datos
     //Son 1017 pokemons, si se le cambia el ultimo / por el numero, trae cada uno de los pokemons
     //Que empiece por defecto en 1
-    let res= await (await fetch("https://pokeapi.co/api/v2/pokemon/1")).json();
+    ////let res= await (await fetch("https://pokeapi.co/api/v2/pokemon/1")).json();
+    let res= await (await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)).json();
 
     //En la pagina "https://pokeapi.co/" se va al apartado sprites -> front_default -> la imagen del pikachu
     let img= res.sprites.front_default;
@@ -277,7 +309,6 @@ pokemones.addEventListener("click", async()=>{
                     Swal.fire("Error", "Error al enviar los datos a MockAPI", "error");
                 }
 
-
-
+                pokemones.disabled=true;
             });
 })
