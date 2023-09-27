@@ -94,13 +94,13 @@ pokeapiMockapi.addEventListener("click",async()=>{
         // Crear un objeto que contenga los datos que deseas enviar a la API MockAPI
         const dataToSend = {
             id: String(id),
-            name: String(name),
-            hp: String(hp),
-            attack: String(attack),
-            defense: String(defense),
-            specialAttack: String(specialAttack),
-            specialDefense: String(specialDefense),
-            speed: String(speed)
+            name: name,
+            hp: parseFloat(hp),
+            attack: parseFloat(attack),
+            defense: parseFloat(defense),
+            "special-attack": parseFloat(specialAttack),
+            "special-defense": parseFloat(specialDefense),
+            speed: parseFloat(speed)
         };
 
         // Configuración para la solicitud POST
@@ -276,8 +276,8 @@ pokemones.addEventListener("click", async()=>{
                     hp: parseFloat(hp),
                     attack: parseFloat(attack),
                     defense: parseFloat(defense),
-                    specialAttack: parseFloat(specialAttack),
-                    specialDefense: parseFloat(specialDefense),
+                    "special-attack": parseFloat(specialAttack),
+                    "special-defense": parseFloat(specialDefense),
                     speed: parseFloat(speed)
                 };
 
