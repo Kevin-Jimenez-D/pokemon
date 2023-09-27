@@ -234,6 +234,8 @@ pokemones.addEventListener("click", async()=>{
             //let mockapi = "https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon"
             // Agrega un evento click al botón con id "enviarJSON"
             document.querySelector("#enviarJSON").addEventListener("click", async (event) => {
+                // Obtén la ID del Pokémon almacenada en el botón
+                //const pokemonId = document.querySelector("#pokemones").dataset.pokemonId;
                 // Evita que el formulario se envíe de forma predeterminada
                 event.preventDefault();
             
@@ -270,8 +272,9 @@ pokemones.addEventListener("click", async()=>{
 
 
                 // Ahora puedes crear un objeto que contenga todos los datos que deseas enviar a la API MockAPI
-                const dataToSend = {
-                    id: String(res.id),
+                //id: String(res.id),
+                const updatedData = {
+                    
                     name: res.name,
                     hp: parseFloat(hp),
                     attack: parseFloat(attack),
@@ -281,32 +284,53 @@ pokemones.addEventListener("click", async()=>{
                     speed: parseFloat(speed)
                 };
 
-                // URL de la API MockAPI
-                const mockapiUrl = "https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon";
+                // Verifica si hay una ID de Pokémon seleccionada
+                if (pokemonId) {
+                    // Si hay una ID seleccionada, actualiza el Pokémon existente en la API MockAPI
+                    const mockapiUrl = `https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon/${pokemonId}`;
+                    const requestOptions = {
+                        method: "PUT", // Usa PUT para actualizar
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(updatedData),
+                    };
 
-                // Configuración para la solicitud POST
-                const requestOptions = {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(dataToSend),
-                };
+                    try {
+                        // Envía la solicitud PUT para actualizar el Pokémon
+                        const response = await fetch(mockapiUrl, requestOptions);
 
-                try {
-                    // Envía los datos al servidor MockAPI
-                    const response = await fetch(mockapiUrl, requestOptions);
-
-                    if (response.ok) {
-                        // Si la solicitud fue exitosa, muestra un mensaje
-                        Swal.fire("Éxito", "Datos enviados correctamente a MockAPI", "success");
-                    } else {
-                        // Si hubo un error en la solicitud, muestra un mensaje de error
-                        Swal.fire("Error", "Error al enviar los datos a MockAPI", "error");
+                        if (response.ok) {
+                            Swal.fire("Éxito", "Datos actualizados correctamente en MockAPI", "success");
+                        } else {
+                            Swal.fire("Error", "Error al actualizar los datos en MockAPI", "error");
+                        }
+                    } catch (error) {
+                        Swal.fire("Error", "Error al actualizar los datos en MockAPI", "error");
                     }
-                } catch (error) {
-                    // En caso de error en la solicitud, muestra un mensaje de error
-                    Swal.fire("Error", "Error al enviar los datos a MockAPI", "error");
+                } else {
+                    // Si no hay una ID seleccionada, crea un nuevo Pokémon en la API MockAPI
+                    const mockapiUrl = "https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon";
+                    const requestOptions = {
+                        method: "POST", // Usa POST para crear un nuevo Pokémon
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(updatedData),
+                    };
+
+                    try {
+                        // Envía la solicitud POST para crear un nuevo Pokémon
+                        const response = await fetch(mockapiUrl, requestOptions);
+
+                        if (response.ok) {
+                            Swal.fire("Éxito", "Nuevo Pokémon creado en MockAPI", "success");
+                        } else {
+                            Swal.fire("Error", "Error al crear un nuevo Pokémon en MockAPI", "error");
+                        }
+                    } catch (error) {
+                        Swal.fire("Error", "Error al crear un nuevo Pokémon en MockAPI", "error");
+                    }
                 }
 
                 pokemones.disabled=true;
