@@ -61,6 +61,36 @@ myPikachu.addEventListener("click", async()=>{
       })  
 })
 
+let pokeapiMockapi = document.querySelector("#pokeapiMockapi");
+
+pokeapiMockapi.addEventListener("click",async()=>{
+    //Que empiece por defecto en 1
+    let idPokeApi= "1"
+    let res= await (await fetch(`https://pokeapi.co/api/v2/pokemon/${idPokeApi}`)).json();
+    // Guarda los datos en las variables
+    let id = res.id;
+    let name = res.name;
+    let hp = res.stats[0].base_stat; // HP es el primer valor en la lista
+    let attack = res.stats[1].base_stat; // Ataque es el segundo valor en la lista
+    let defense = res.stats[2].base_stat; // Defensa es el tercer valor en la lista
+    let specialAttack = res.stats[3].base_stat; // Ataque Especial es el cuarto valor en la lista
+    let specialDefense = res.stats[4].base_stat; // Defensa Especial es el quinto valor en la lista
+    let speed = res.stats[5].base_stat; // Velocidad es el sexto valor en la lista
+
+    // Muestra los valores en la consola
+    console.log("ID del pokemon:", String(id));
+    console.log("Nombre del Pokémon:", name);
+    console.log("Puntos de Salud (HP):", String(hp));
+    console.log("Puntos de Ataque:", String(attack));
+    console.log("Puntos de Defensa:", String(defense));
+    console.log("Puntos de Ataque Especial:", String(specialAttack));
+    console.log("Puntos de Defensa Especial:", String(specialDefense));
+    console.log("Velocidad:", String(speed));
+
+    // URL de la API MockAPI
+    const mockapiUrl = "https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon";
+})
+
 
 //Todas las acciones relacionadas con el boton addEventListener de los pokemones
 pokemones.addEventListener("click", async()=>{
