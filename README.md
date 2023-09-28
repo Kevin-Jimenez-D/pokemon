@@ -27,7 +27,7 @@ Este proyecto interactua con una api `https://pokeapi.co/`, en el cual los prime
 
    - **Pokemones existentes mockapi:** Como se va a pedir prácticamente los nombres de los pokemones para hacer varias operaciones, este botón me muestra en consola los pokemones existentes en mockapi, para que el usuario sepa con cuales puede interactuar
 
-   - **Vista previa Pikachu:** Este botón muestra por defecto como se vería pikachu (imagen, name, hp, attack, defense, specialAttack, specialDefense y speed). El boton de enviar me aparece desabilitado porque no es para editar, solo es para vista previa
+   - **Vista previa pokemon** Este botón muestra por defecto como se vería el pokemon si uno ingresa su nombre respectivo en la sección de "Nombre Pokemon vista previa" (imagen, name, hp, attack, defense, specialAttack, specialDefense y speed). El boton de enviar me aparece desabilitado porque no es para editar, solo es para vista previa. Si encuentra el pokemon me muestra una vista previa del pokemon seleccionado, en caso de que no, me dice que no se encuentra en la base de datos.
 
    - **Buscar pokemon:** Lo primero que se debe hacer es escribir el nombre del pokemon que se desea editar en el apartado "Escribe nombre pokemon", si no se encuentra en mockapi, me envía un mensaje diciendo que no se encuentra en la base de datos y sigue desabilitado el botón de "Editar Pokemones", pero si el nombre si se encuentra, se me habilita el botón de "Editar Pokemones"
 
