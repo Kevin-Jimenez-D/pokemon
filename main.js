@@ -13,16 +13,18 @@ let myPikachu = document.querySelector("#myPikachu");
 //Es el boton donde saldrán los demas pokemones
 let pokemones= document.querySelector("#pokemones");
 
+//Los datos de los pokemones que se veran en la consola
 document.querySelector("#vistaPrevia").addEventListener("click", async () => {
-    // URL de la API MockAPI
+    // URL de la API MockAPI a donde se enviaran
     const mockapiUrl = "https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon";
 
     try {
         // Realiza una solicitud GET para obtener todos los Pokémon de la base de datos MockAPI
         const response = await fetch(mockapiUrl);
+        //Para entrar internamente a los datos de mockapi
         const pokemonData = await response.json();
 
-        // Itera a través de los Pokémon y muestra los nombres en la consola
+        // Itera a través de los Pokémon y muestra los nombres en la consola y por defecto me saca el nombre o name
         pokemonData.forEach((pokemon) => {
             console.log(pokemon.name);
         });
@@ -44,6 +46,7 @@ myPikachu.addEventListener("click", async()=>{
 
     //En la pagina "https://pokeapi.co/" se va al apartado sprites -> front_default -> la imagen del pikachu
     let img= res.sprites.front_default;
+    //EN caso de alguna falla, me carga esta imagen sacada de la src de la imagen encontrada en Google
     let defaultImg = "https://media.tenor.com/OPhGGLtFqLQAAAAC/pokeball.gif";
 
     // lo del swal es lo de la página "https://sweetalert2.github.io/"
@@ -77,6 +80,7 @@ myPikachu.addEventListener("click", async()=>{
         imageWidth: "80%",
         imageHeight: "80%",
       })
+      //Mostrar las nuevas estadisticas al cambiar los valores de los input y evidenciarlos en el html
       let myContainer = document.querySelector("#swal2-html-container");
       myContainer.addEventListener("input", (e)=>{
         let myLabel=e.target.nextElementSibling;
@@ -84,6 +88,7 @@ myPikachu.addEventListener("click", async()=>{
       })  
 })
 
+//Enviar los datos de pokeapi a mockapi
 let pokeapiMockapi = document.querySelector("#pokeapiMockapi");
 
 pokeapiMockapi.addEventListener("click",async()=>{
@@ -115,6 +120,7 @@ pokeapiMockapi.addEventListener("click",async()=>{
         const mockapiUrl = "https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon";
 
         // Crear un objeto que contenga los datos que deseas enviar a la API MockAPI
+        //COlocar correctamente los elementos de la izquierda : para que no me envie datos errados
         const dataToSend = {
             id: String(id),
             name: name,
@@ -126,7 +132,7 @@ pokeapiMockapi.addEventListener("click",async()=>{
             speed: parseFloat(speed)
         };
 
-        // Configuración para la solicitud POST
+        // Configuración para la solicitud POST, es agregar datos aunque no existan
         const requestOptions = {
             method: "POST",
             headers: {
@@ -136,7 +142,7 @@ pokeapiMockapi.addEventListener("click",async()=>{
         };
 
         try {
-            // Envía los datos al servidor MockAPI
+            // Envía los datos al servidor MockAPI junto con el método y los datos a enviar
             const response = await fetch(mockapiUrl, requestOptions);
 
             if (response.ok) {
@@ -156,7 +162,7 @@ pokeapiMockapi.addEventListener("click",async()=>{
 
 // Agrega un evento click al botón con id "buscarPokemon"
 document.querySelector("#buscarPokemon").addEventListener("click", async () => {
-    // Obtén el nombre del Pokémon ingresado por el usuario
+    // Obtén el nombre del Pokémon ingresado por el usuario, elimina espacios en blanco al inicio y final y coloca la palabra en minuscula
     const pokemonName = document.querySelector("#nombrePokemon").value.trim().toLowerCase();
 
     // Verifica si el Pokémon ya existe en la base de datos de MockAPI
@@ -164,12 +170,13 @@ document.querySelector("#buscarPokemon").addEventListener("click", async () => {
     const response = await fetch(mockapiUrl);
     const pokemonData = await response.json();
 
-    // Busca el Pokémon en los datos de MockAPI
+    // Busca el Pokémon en los datos de MockAPI, la vuelvo minuscula en la appi y miro si son iguales
     const foundPokemon = pokemonData.find((pokemon) => pokemon.name.toLowerCase() === pokemonName);
 
     if (foundPokemon) {
         // Si se encuentra el Pokémon, habilita el botón "pokemones" y almacena su ID
         document.querySelector("#pokemones").removeAttribute("disabled");
+        //Extraer su id
         document.querySelector("#pokemones").dataset.pokemonId = foundPokemon.id;
         Swal.fire("Éxito", `¡${foundPokemon.name} encontrado en la base de datos!`, "success");
     } else {
@@ -211,6 +218,7 @@ pokemones.addEventListener("click", async()=>{
         //Los input serán de tipo rango y en la parte del valor sera de los datos mapeados, 
         //Los labels mostraran el numero y luego la caracteristica, HP y attack, etc
         //Que los una con el .join en el HTML
+        //Mirar el arbol de la api stats->base_stat para el valor y stats->star->name para el nombre del valor
         `
         <form>
             ${res.stats.map(data =>`
@@ -296,6 +304,7 @@ pokemones.addEventListener("click", async()=>{
 
                 // Ahora puedes crear un objeto que contenga todos los datos que deseas enviar a la API MockAPI
                 //id: String(res.id),
+                //OJo con los apartados de la izquierda : para no envíe datos falsos
                 const updatedData = {
                     
                     name: res.name,
@@ -307,7 +316,7 @@ pokemones.addEventListener("click", async()=>{
                     speed: parseFloat(speed)
                 };
 
-                // Verifica si hay una ID de Pokémon seleccionada
+                // Verifica si hay una ID de Pokémon seleccionada, importante porque deseo editar
                 if (pokemonId) {
                     // Si hay una ID seleccionada, actualiza el Pokémon existente en la API MockAPI
                     const mockapiUrl = `https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon/${pokemonId}`;
@@ -356,7 +365,7 @@ pokemones.addEventListener("click", async()=>{
                     }
                 }
 
-                pokemones.disabled=true;
+                pokemones.disabled=true;   //Desabilita luego de enviar para que no me edite nombres de pokemones que no encuentre
             });
 })
 
