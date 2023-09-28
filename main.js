@@ -74,6 +74,7 @@ myPikachu.addEventListener("click", async()=>{
     //Traiga la peticion, por ejemplo 202, lo convierte a JSON y traiga esos datos
     //Son 1017 pokemons
     //let res= await (await fetch("https://pokeapi.co/api/v2/pokemon/pikachu")).json();
+    //El objeto encontrado con el id del pokemon, solo me interesa el id para manipular la url
     let res= await (await fetch(`https://pokeapi.co/api/v2/pokemon/${foundPokemon.id}`)).json();
 
     //En la pagina "https://pokeapi.co/" se va al apartado sprites -> front_default -> la imagen del pikachu
