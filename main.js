@@ -39,10 +39,42 @@ document.querySelector("#vistaPrevia").addEventListener("click", async () => {
 
 
 myPikachu.addEventListener("click", async()=>{
+
+
+    // Obtén el nombre del Pokémon ingresado por el usuario, elimina espacios en blanco al inicio y final y coloca la palabra en minuscula
+    const pokemonName = document.querySelector("#pokemonActual").value.trim().toLowerCase();
+
+    // Verifica si el Pokémon ya existe en la base de datos de MockAPI
+    const mockapiUrl = "https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon";
+    const response = await fetch(mockapiUrl);
+    const pokemonData = await response.json();
+
+    // Busca el Pokémon en los datos de MockAPI, la vuelvo minuscula en la appi y miro si son iguales
+    const foundPokemon = pokemonData.find((pokemon) => pokemon.name.toLowerCase() === pokemonName);
+
+    if (foundPokemon) {
+        
+        
+        //document.querySelector("#pokemones").dataset.pokemonId = foundPokemon.id;
+        //console.log("Encontrado")
+        //console.log(foundPokemon.id)
+        //Extraer su id
+        // Obtén la ID del Pokémon almacenada en el botón
+        //const pokemonId = document.querySelector("#pokemones").dataset.pokemonId;
+        //const mockapiUrl = `https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon/${pokemonId}`;
+    } else {
+        // Si no se encuentra el Pokémon, muestra un mensaje de error
+        //console.log("No encontrado")
+        Swal.fire("Error", `No se encontró ningún Pokémon con el nombre "${pokemonName}" en la base de datos.`, "error");
+    }
+
+
+
     //De la pagina "https://pokeapi.co/" por defecto aparece pokemon y en /ditto se coloca pikachu
     //Traiga la peticion, por ejemplo 202, lo convierte a JSON y traiga esos datos
     //Son 1017 pokemons
-    let res= await (await fetch("https://pokeapi.co/api/v2/pokemon/pikachu")).json();
+    //let res= await (await fetch("https://pokeapi.co/api/v2/pokemon/pikachu")).json();
+    let res= await (await fetch(`https://pokeapi.co/api/v2/pokemon/${foundPokemon.id}`)).json();
 
     //En la pagina "https://pokeapi.co/" se va al apartado sprites -> front_default -> la imagen del pikachu
     let img= res.sprites.front_default;
