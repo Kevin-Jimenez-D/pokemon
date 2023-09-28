@@ -13,6 +13,29 @@ let myPikachu = document.querySelector("#myPikachu");
 //Es el boton donde saldrán los demas pokemones
 let pokemones= document.querySelector("#pokemones");
 
+document.querySelector("#vistaPrevia").addEventListener("click", async () => {
+    // URL de la API MockAPI
+    const mockapiUrl = "https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon";
+
+    try {
+        // Realiza una solicitud GET para obtener todos los Pokémon de la base de datos MockAPI
+        const response = await fetch(mockapiUrl);
+        const pokemonData = await response.json();
+
+        // Itera a través de los Pokémon y muestra los nombres en la consola
+        pokemonData.forEach((pokemon) => {
+            console.log(pokemon.name);
+        });
+
+        // Muestra un mensaje de éxito en Swal.fire
+        Swal.fire("Éxito", "Nombres de Pokémon mostrados en la consola.", "success");
+    } catch (error) {
+        // En caso de error, muestra un mensaje de error en Swal.fire
+        Swal.fire("Error", "Error al procesar la solicitud.", "error");
+    }
+});
+
+
 myPikachu.addEventListener("click", async()=>{
     //De la pagina "https://pokeapi.co/" por defecto aparece pokemon y en /ditto se coloca pikachu
     //Traiga la peticion, por ejemplo 202, lo convierte a JSON y traiga esos datos
@@ -47,7 +70,7 @@ myPikachu.addEventListener("click", async()=>{
                 </label>
             </div>
             `).join("")}
-            <input type="submit" value="Enviar"/>
+            <input type="submit" value="Enviar" disabled="disabled"/>
         </form>
         `,
         //Imagenes al 80%
