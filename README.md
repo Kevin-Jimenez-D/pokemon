@@ -13,7 +13,7 @@ Este proyecto interactua con una api `https://pokeapi.co/`, en el cual los prime
 - HTML
 - CSS
 - JavaScript
-- Interactuar con APIs, PokeApi y MockApi
+- Interactuar con APIs, PokeApi, MockApi y sweetalert2 `https://sweetalert2.github.io/`
 - Métodos como PUSH, DELETE, POST
 - Eventos de escucha como addEventListener
 
@@ -27,11 +27,11 @@ Este proyecto interactua con una api `https://pokeapi.co/`, en el cual los prime
 
    - **Pokemones existentes mockapi:** Como se va a pedir prácticamente los nombres de los pokemones para hacer varias operaciones, este botón me muestra en consola los pokemones existentes en mockapi, para que el usuario sepa con cuales puede interactuar
 
-   - **Vista previa pokemon** Este botón muestra por defecto como se vería el pokemon si uno ingresa su nombre respectivo en la sección de "Nombre Pokemon vista previa" (imagen, name, hp, attack, defense, specialAttack, specialDefense y speed). El boton de enviar me aparece desabilitado porque no es para editar, solo es para vista previa. Si encuentra el pokemon me muestra una vista previa del pokemon seleccionado, en caso de que no, me dice que no se encuentra en la base de datos.
+   - **Vista previa pokemon** Este botón muestra por defecto como se vería el pokemon si uno ingresa su nombre respectivo en la sección de "Nombre Pokemon vista previa" (imagen, name, hp, attack, defense, specialAttack, specialDefense y speed). Si encuentra el pokemon me muestra una vista previa del pokemon seleccionado desde el mockapi, en caso de que no, me dice que no se encuentra en la base de datos.
 
    - **Buscar pokemon:** Lo primero que se debe hacer es escribir el nombre del pokemon que se desea editar en el apartado "Escribe nombre pokemon", si no se encuentra en mockapi, me envía un mensaje diciendo que no se encuentra en la base de datos y sigue desabilitado el botón de "Editar Pokemones", pero si el nombre si se encuentra, se me habilita el botón de "Editar Pokemones"
 
-   - **Editar Pokemones:** Este se habilita cuando se encuentra el nombre ingresado por el usuario en mockapi, de ahí el usuario puede mover sus datos a su elección para editarlos (hp, attack, defense, specialAttack, specialDefense y speed) y darle en el botón "enviar", al hacer esto, el botón "Editar Pokemones" se vuelve a desabilitar
+   - **Editar Pokemones:** Este se habilita cuando se encuentra el nombre ingresado por el usuario en mockapi, de ahí el usuario puede mover sus datos a su elección para editarlos (hp, attack, defense, specialAttack, specialDefense y speed) y darle en el botón "enviar", al hacer esto, el botón "Editar Pokemones" se vuelve a desabilitar (NOTA: Aunque carga los datos de acuerdo a la pokeapi, de todos modos como se va a editar los datos, no lo vi necesario que se vea los datos desde la mockapi, de todos modos verifica si la id existe en la mockapi y envia esos datos en la mockapi)
 
    - **enviar:** Este solo aparece cuando ya se encuentra en el apartado de editar, y es para enviar los nuevos datos a la mockapi para editarlos
 
