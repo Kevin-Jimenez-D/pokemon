@@ -254,6 +254,9 @@ pokemones.addEventListener("click", async()=>{
         //Los labels mostraran el numero y luego la caracteristica, HP y attack, etc
         //Que los una con el .join en el HTML
         //Mirar el arbol de la api stats->base_stat para el valor y stats->star->name para el nombre del valor
+
+        //Observar que desde form es una forma de iteración con map, crea los divs que se necesiten con los
+        //...otros datos para completar los datos de registro, los une con el .join u el input es solo una vez
         `
         <form>
             ${res.stats.map(data =>`
