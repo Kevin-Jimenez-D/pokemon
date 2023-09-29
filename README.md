@@ -57,6 +57,10 @@ Este proyecto interactua con una api `https://pokeapi.co/`, en el cual los prime
 
    - **Eliminar pokemon:** Lo primero que se debe hacer es escribir el nombre del pokemon que se desea eliminar en el apartado "Eliminar nombre pokemon", si no se encuentra en mockapi, me envía un mensaje diciendo que no se encuentra en la base de datos, pero si el nombre si se encuentra, me lo elimina del mockapi
 
+   ![image](img/EliminarPokemon1.png)
+
+   ![image](img/EliminarPokemon2.png)
+
 ## NOTA
 
 - **Ver proyecto:** Abrir con ver en vivo u open with live server
