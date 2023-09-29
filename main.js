@@ -76,16 +76,18 @@ myPikachu.addEventListener("click", async()=>{
     //let res= await (await fetch("https://pokeapi.co/api/v2/pokemon/pikachu")).json();
     //El objeto encontrado con el id del pokemon, solo me interesa el id para manipular la url
     let res= await (await fetch(`https://pokeapi.co/api/v2/pokemon/${foundPokemon.id}`)).json();
-
+    let resMockApi= await (await fetch(`https://6512485eb8c6ce52b3957baa.mockapi.io/pokemon/${foundPokemon.id}`)).json();
     //En la pagina "https://pokeapi.co/" se va al apartado sprites -> front_default -> la imagen del pikachu
     let img= res.sprites.front_default;
     //EN caso de alguna falla, me carga esta imagen sacada de la src de la imagen encontrada en Google
     let defaultImg = "https://media.tenor.com/OPhGGLtFqLQAAAAC/pokeball.gif";
 
+    //console.log(resMockApi);
+
     // lo del swal es lo de la página "https://sweetalert2.github.io/"
     Swal.fire({
         //En la parte del name, en el link de la api, el name es un apartado principal, entonces solo se debe colocar name
-        title: `${res.name}`,
+        title: `${resMockApi.name}`,
         text: 'Modal with a custom image.',
         
         //Donde aparece el ? es un condiciona, si la imagen aparece la coloca, sino coloca la de por default
@@ -95,20 +97,19 @@ myPikachu.addEventListener("click", async()=>{
         //Los input serán de tipo rango y en la parte del valor sera de los datos mapeados, 
         //Los labels mostraran el numero y luego la caracteristica, HP y attack, etc
         //Que los una con el .join en el HTML
-        `
-        <form>
-            ${res.stats.map(data =>`
-            <div>
-                <input type="range" value="${data.base_stat}" name="${data.stat.name}"/>
-                <label data-name="${data.stat.name}">
-                    <b>${data.base_stat}</b>
-                    ${data.stat.name}
-                </label>
-            </div>
-            `).join("")}
-            <input type="submit" value="Enviar" disabled="disabled"/>
-        </form>
-        `,
+        //Para acceder a propiedades con nombres que contienen guiones, debes utilizar la notación de corchetes
+        // en lugar de la notación de punto. Aquí está cómo puedes hacerlo:
+        `<p>id:${resMockApi.id}</p>`+
+        `<p>name:${resMockApi.name}</p>`+
+        `<p>hp:${resMockApi.hp}</p>`+
+        `<p>attack:${resMockApi.attack}</p>`+
+        `<p>defense:${resMockApi.defense}</p>`+
+
+        
+        `<p>special-attack:${resMockApi["special-attack"]}</p>`+
+        `<p>special-defense:${resMockApi["special-defense"]}</p>`+
+
+        `<p>speed:${resMockApi.speed}</p>`,
         //Imagenes al 80%
         imageWidth: "80%",
         imageHeight: "80%",
@@ -222,6 +223,7 @@ document.querySelector("#buscarPokemon").addEventListener("click", async () => {
 
 
 //Todas las acciones relacionadas con el boton addEventListener de los pokemones
+//Esta se habilita solo si se encuentra el pokemon que se ingresó
 pokemones.addEventListener("click", async()=>{
     // Obtén la ID del Pokémon almacenada en el botón
     const pokemonId = document.querySelector("#pokemones").dataset.pokemonId;
